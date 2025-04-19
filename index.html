@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Listening Test - Family Life (Beginner)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .options {
+            margin: 15px 0;
+        }
+
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #e9e9e9;
+        }
+
+        #submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        #submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        #results {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+        }
+
+        .incorrect {
+            background-color: #f8d7da !important;
+        }
+
+        .play-audio-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .play-audio-btn:hover {
+            background-color: #005f7f;
+        }
+
+        .transcript {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-style: italic;
+            display: none;
+        }
+
+        .translation {
+            margin: 5px 0 10px 10px;
+            color: #666;
+            font-size: 0.9em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spanish Listening Comprehension Test - Family Life (Beginner)</h1>
+        <div id="quiz"></div>
+        <button id="submit-btn">Submit Answers</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                textToSpeak: "Vivo en una casa.",
+                textToSpeakEnglish: "I live in a house.",
+                question: "¿Dónde vive la persona?",
+                questionEnglish: "Where does the person live?",
+                options: [
+                    "A) En una casa",
+                    "B) En un coche",
+                    "C) En una escuela",
+                    "D) En un parque"
+                ],
+                optionsEnglish: [
+                    "A) In a house",
+                    "B) In a car",
+                    "C) In a school",
+                    "D) In a park"
+                ],
+                correctAnswer: 0,
+                audioFile: "audio/001.mp3"
+            },
+            {
+                textToSpeak: "Como pan en la cocina.",
+                textToSpeakEnglish: "I eat bread in the kitchen.",
+                question: "¿Qué come la persona?",
+                questionEnglish: "What does the person eat?",
+                options: [
+                    "A) Pan",
+                    "B) Sopa",
+                    "C) Fruta",
+                    "D) Leche"
+                ],
+                optionsEnglish: [
+                    "A) Bread",
+                    "B) Soup",
+                    "C) Fruit",
+                    "D) Milk"
+                ],
+                correctAnswer: 0,
+                audioFile: "audio/002.mp3"
+            },
+            {
+                textToSpeak: "Mi madre limpia la mesa.",
+                textToSpeakEnglish: "My mother cleans the table.",
+                question: "¿Quién limpia la mesa?",
+                questionEnglish: "Who cleans the table?",
+                options: [
+                    "A) Mi padre",
+                    "B) Mi madre",
+                    "C) Mi hermano",
+                    "D) Mi hermana"
+                ],
+                optionsEnglish: [
+                    "A) My father",
+                    "B) My mother",
+                    "C) My brother",
+                    "D) My sister"
+                ],
+                correctAnswer: 1,
+                audioFile: "audio/003.mp3"
+            },
+            {
+                textToSpeak: "Duermo en mi cama.",
+                textToSpeakEnglish: "I sleep in my bed.",
+                question: "¿Dónde duerme la persona?",
+                questionEnglish: "Where does the person sleep?",
+                options: [
+                    "A) En la mesa",
+                    "B) En la silla",
+                    "C) En la cama",
+                    "D) En la cocina"
+                ],
+                optionsEnglish: [
+                    "A) On the table",
+                    "B) On the chair",
+                    "C) In the bed",
+                    "D) In the kitchen"
+                ],
+                correctAnswer: 2,
+                audioFile: "audio/004.mp3"
+            },
+            {
+                textToSpeak: "Mi padre cocina en la cocina.",
+                textToSpeakEnglish: "My father cooks in the kitchen.",
+                question: "¿Qué hace mi padre?",
+                questionEnglish: "What does my father do?",
+                options: [
+                    "A) Cocina",
+                    "B) Duerme",
+                    "C) Lee",
+                    "D) Corre"
+                ],
+                optionsEnglish: [
+                    "A) Cooks",
+                    "B) Sleeps",
+                    "C) Reads",
+                    "D) Runs"
+                ],
+                correctAnswer: 0,
+                audioFile: "audio/005.mp3"
+            },
+            {
+                textToSpeak: "Limpio el baño.",
+                textToSpeakEnglish: "I clean the bathroom.",
+                question: "¿Qué limpia la persona?",
+                questionEnglish: "What does the person clean?",
+                options: [
+                    "A) La cocina",
+                    "B) El baño",
+                    "C) La silla",
+                    "D) La ventana"
+                ],
+                optionsEnglish: [
+                    "A) The kitchen",
+                    "B) The bathroom",
+                    "C) The chair",
+                    "D) The window"
+                ],
+                correctAnswer: 1,
+                audioFile: "audio/006.mp3"
+            },
+            {
+                textToSpeak: "Mi hermano come fruta.",
+                textToSpeakEnglish: "My brother eats fruit.",
+                question: "¿Qué come mi hermano?",
+                questionEnglish: "What does my brother eat?",
+                options: [
+                    "A) Pan",
+                    "B) Sopa",
+                    "C) Fruta",
+                    "D) Leche"
+                ],
+                optionsEnglish: [
+                    "A) Bread",
+                    "B) Soup",
+                    "C) Fruit",
+                    "D) Milk"
+                ],
+                correctAnswer: 2,
+                audioFile: "audio/007.mp3"
+            },
+            {
+                textToSpeak: "Leo un libro en la sala.",
+                textToSpeakEnglish: "I read a book in the living room.",
+                question: "¿Qué hace la persona en la sala?",
+                questionEnglish: "What does the person do in the living room?",
+                options: [
+                    "A) Come",
+                    "B) Duerme",
+                    "C) Lee",
+                    "D) Cocina"
+                ],
+                optionsEnglish: [
+                    "A) Eats",
+                    "B) Sleeps",
+                    "C) Reads",
+                    "D) Cooks"
+                ],
+                correctAnswer: 2,
+                audioFile: "audio/008.mp3"
+            },
+            {
+                textToSpeak: "Mi hermana bebe agua.",
+                textToSpeakEnglish: "My sister drinks water.",
+                question: "¿Qué bebe mi hermana?",
+                questionEnglish: "What does my sister drink?",
+                options: [
+                    "A) Leche",
+                    "B) Sopa",
+                    "C) Agua",
+                    "D) Fruta"
+                ],
+                optionsEnglish: [
+                    "A) Milk",
+                    "B) Soup",
+                    "C) Water",
+                    "D) Fruit"
+                ],
+                correctAnswer: 2,
+                audioFile: "audio/009.mp3"
+            },
+            {
+                textToSpeak: "Vemos televisión en la sala.",
+                textToSpeakEnglish: "We watch television in the living room.",
+                question: "¿Qué hacemos en la sala?",
+                questionEnglish: "What do we do in the living room?",
+                options: [
+                    "A) Dormimos",
+                    "B) Cocinamos",
+                    "C) Vemos televisión",
+                    "D) Limpiamos"
+                ],
+                optionsEnglish: [
+                    "A) Sleep",
+                    "B) Cook",
+                    "C) Watch television",
+                    "D) Clean"
+                ],
+                correctAnswer: 2,
+                audioFile: "audio/010.mp3"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submit-btn');
+        const resultsContainer = document.getElementById('results');
+        let selectedAnswers = new Array(questions.length).fill(null);
+
+        function generateQuiz() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p><strong>Pregunta ${index + 1}:</strong> ${q.question}</p>
+                    <div class="translation" id="question-translation-${index}">${q.questionEnglish}</div>
+                    <button class="play-audio-btn" onclick="playAudio(${index})">Escuchar Audio</button>
+                    <div class="transcript" id="transcript-${index}">${q.textToSpeak}</div>
+                    <div class="translation" id="transcript-translation-${index}">${q.textToSpeakEnglish}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((option, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">${option}</div>
+                            <div class="translation" id="option-translation-${index}-${i}">${q.optionsEnglish[i]}</div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function playAudio(index) {
+            const audio = new Audio(questions[index].audioFile);
+            audio.play();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            selectedAnswers[questionIndex] = optionIndex;
+            const options = document.querySelectorAll(`#options-${questionIndex} .option`);
+            options.forEach((opt, i) => {
+                opt.style.backgroundColor = i === optionIndex ? '#e0e0e0' : '#f9f9f9';
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selected = selectedAnswers[index];
+                const options = document.querySelectorAll(`#options-${index} .option`);
+                options.forEach((opt, i) => {
+                    if (i === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    } else if (i === selected && selected !== q.correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                if (selected === q.correctAnswer) score++;
+
+                document.getElementById(`transcript-${index}`).style.display = 'block';
+                document.getElementById(`question-translation-${index}`).style.display = 'block';
+                document.getElementById(`transcript-translation-${index}`).style.display = 'block';
+                q.options.forEach((_, i) => {
+                    document.getElementById(`option-translation-${index}-${i}`).style.display = 'block';
+                });
+            });
+
+            resultsContainer.innerHTML = `Tu puntaje: ${score} de ${questions.length}`;
+            submitButton.disabled = true;
+        }
+
+        generateQuiz();
+        submitButton.addEventListener('click', checkAnswers);
+    </script>
+</body>
+</html>
